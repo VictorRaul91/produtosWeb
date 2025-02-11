@@ -1,0 +1,49 @@
+<div class="container mt-4">
+    <div class="card shadow p-4">
+      <h5 class="card-title">Consulta de produtos</h5>
+      <form>
+        <div class="mb-3">
+          <label for="consultaNome" class="form-label">Nome do Produto</label>
+          <input type="text" class="form-control" id="consultaNome" placeholder="Digite o nome do produto">
+        </div>
+        <button type="submit" class="btn btn-primary">Pesquisar</button>
+      </form>
+    </div>
+  
+    <div class="card shadow p-4 mt-4">
+      <h5 class="card-title">Listagem de Produtos</h5>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Preço</th>
+            <th>Quantidade</th>
+            <th>Categoria</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Produto 1</td>
+            <td>R$ 100,00</td>
+            <td>10</td>
+            <td>Eletrônicos</td>
+            <td>
+              <button class="btn btn-primary btn-sm me-1">Alterar</button>
+              <button class="btn btn-danger btn-sm">Excluir</button>
+            </td>
+          </tr>
+          <tr>
+            <td>Produto 2</td>
+            <td>R$ 50,00</td>
+            <td>5</td>
+            <td>Roupas</td>
+            <td>
+              <button class="btn btn-primary btn-sm me-1">Alterar</button>
+              <button class="btn btn-danger btn-sm">Excluir</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>  

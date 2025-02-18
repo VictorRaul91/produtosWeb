@@ -1,31 +1,78 @@
 <div class="container mt-4">
-    <div class="card shadow p-4">
-      <h5 class="card-title">Formulário de cadastro de produtos</h5>
-      <hr/>
-      <form>
-        <div class="mb-3">
-          <label for="nome" class="form-label">Nome</label>
-          <input type="text" class="form-control" id="nome" placeholder="Digite o nome do produto">
-        </div>
-        <div class="mb-3">
-          <label for="preco" class="form-label">Preço</label>
-          <input type="number" class="form-control" id="preco" placeholder="Digite o preço">
-        </div>
-        <div class="mb-3">
-          <label for="quantidade" class="form-label">Quantidade</label>
-          <input type="number" class="form-control" id="quantidade" placeholder="Digite a quantidade">
-        </div>
-        <div class="mb-3">
-          <label for="categoria" class="form-label">Categoria</label>
-          <select class="form-select" id="categoria">
-            <option selected>Selecione uma categoria</option>
-            <option value="1">Eletrônicos</option>
-            <option value="2">Roupas</option>
-            <option value="3">Alimentos</option>
-          </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Cadastrar</button>
-      </form>
+  <div class="card shadow p-4">
+    <h5 class="card-title">Formulário de cadastro de produtos</h5>
+    <hr />
+
+    <div *ngIf="mensagem" class="alert alert-success" >
+      <strong> {{ mensagem }}</strong>
     </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="nome" class="form-label">Nome</label>
+        <input formControlName="nome" class="form-control" id="nome" placeholder="Digite o nome do produto">
+        <span class="text-danger" *ngIf="f['nome'].touched && f['nome'].invalid">
+          <span *ngIf="f['nome'].hasError('required')">
+            Por favor, informe o nome do produto.
+          </span>
+          <span *ngIf="f['nome'].hasError('minlength')">
+            Por favor, informe o nome do produto com pelo menos 8 caracteres.
+          </span>
+          <span *ngIf="f['nome'].hasError('maxlength')">
+            Por favor, informe o nome do produto com no máximo 100 caracteres.
+          </span>
+        </span>
+      </div>
+      <div class="mb-3">
+        <label for="preco" class="form-label">Preço</label>
+        <input formControlName="preco" type="number" class="form-control" id="preco" placeholder="Digite o preço">
+
+        <span class="text-danger" *ngIf="f['preco'].touched && f['preco'].invalid">
+          <span *ngIf="f['preco'].hasError('required')">
+            Por favor, informe o nome do produto.
+          </span>
+          <span *ngIf="f['preco'].hasError('min')">
+            Por favor, informe o preço do produto com valor minimo de '0.01'.
+          </span>
+        </span>
+
+      </div>
+
+      <div class="mb-3">
+        <label for="quantidade" class="form-label">Quantidade</label>
+        <input formControlName="quantidade" type="number" class="form-control" id="quantidade"
+          placeholder="Digite a quantidade">
+
+        <span class="text-danger" *ngIf="f['quantidade'].touched && f['quantidade'].invalid">
+          <span *ngIf="f['quantidade'].hasError('required')">
+            Por favor, informe o nome do produto.
+          </span>
+          <span *ngIf="f['quantidade'].hasError('min')">
+            Por favor, informe a quantidade do produto com valor minimo de '0'.
+          </span>
+        </span>
+      </div>
+
+      <div class="mb-3">
+        <label for="categoria" class="form-label">Categoria</label>
+        <select formControlName="categoriaId" class="form-select" id="categoria">
+          <option value= "">Selecione uma categoria</option>
+          <option *ngFor="let c of categorias" value="{{ c.id }}">
+            {{c.nome}}
+
+          </option>
+        </select>
+        
+        <span class="text-danger" *ngIf="f['categoriaId'].touched && f['categoriaId'].invalid">
+          <span *ngIf="f['categoriaId'].hasError('required')">
+            Por favor, informe o nome do produto.
+          </span>
+        </span>
+
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+        Cadastrar
+      </button>
+    </form>
   </div>
-  
+</div>

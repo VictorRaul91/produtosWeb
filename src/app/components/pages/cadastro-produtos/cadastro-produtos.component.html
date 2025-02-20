@@ -3,8 +3,9 @@
     <h5 class="card-title">Formulário de cadastro de produtos</h5>
     <hr />
 
-    <div *ngIf="mensagem" class="alert alert-success" >
-      <strong> {{ mensagem }}</strong>
+    <div *ngIf="mensagem" class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong> {{ mensagem }} </strong>
+      <button (click)="mensagem = ''" type="button" class="btn-close" aria-label="Close"></button>
     </div>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()">

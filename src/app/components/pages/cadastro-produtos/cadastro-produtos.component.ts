@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { endpoints } from '../../../configurations/environments';
 
 @Component({
   selector: 'app-cadastro-produtos',
@@ -26,7 +27,7 @@ export class CadastroProdutosComponent {
   //funcao executada ao iniciar componente
   ngOnInit(){
     //fazendo uma requisicao get para a API
-    this.http.get('http://localhost:8080/api/categorias/consultar')
+    this.http.get(endpoints.consultar_categorias)
     .subscribe({  //aguardando retorno da API
       next:(data) =>{ //CAPTURANDO DADOS OBTIDOS
        //atribuindo os dados obtidos a variavel categorias
@@ -61,7 +62,7 @@ get f(){
 //funcao para capturar o evento SUBMIT do formulario
 onSubmit(){
  //fazendo uma requisicao POST para o endpoint de cadastro de produtos
- this.http.post('http://localhost:8080/api/produtos/cadastrar',this.form.value)
+ this.http.post(endpoints.cadastrar_produto,this.form.value)
  .subscribe({ // aguardando o retorno da API
   next:(data: any) =>{ //capturando os dados obtidos
     this.mensagem = data.message; // capturando mensagem de retorno

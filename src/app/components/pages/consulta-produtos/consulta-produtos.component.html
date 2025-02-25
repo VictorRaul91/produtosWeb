@@ -34,17 +34,21 @@
             <th>Nome</th>
             <th>Preço</th>
             <th>Quantidade</th>
+            <th>Total</th>
+            <th>Categoria</th>
             <th>Ações</th>
           </tr>
         </thead>
         <tbody>  
           <tr *ngFor="let p of produtos">
-            <td>{{p.nome}}</td>
-            <td>{{p.preco}}</td>
+            <td>{{p.nome | uppercase}}</td>
+            <td>{{p.preco | currency:'BRL' }}</td>
             <td>{{p.quantidade}}</td>
+            <td>{{ p.preco * p.quantidade | currency:'BRL'  }}</td>
+            <td> {{ p.categoria.nome | uppercase }}</td> 
             <td>
-              <button class="btn btn-primary btn-sm me-1">Alterar</button>
-              <button class="btn btn-danger btn-sm">Excluir</button>
+              <button routerLink="/pages/edicao-produtos" class="btn btn-primary btn-sm me-1">Alterar</button>
+              <button (click)="onDelete(p.id)" class="btn btn-danger btn-sm">Excluir</button>
             </td>
           </tr>
         </tbody>

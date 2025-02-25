@@ -2,13 +2,16 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { endpoints } from '../../../configurations/environments';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-consulta-produtos',
   imports: [
     CommonModule, //diretivas básicas de componente do angular
     FormsModule, //diretivas de formulário do angular
-    ReactiveFormsModule //diretivas de formulário reativo do angular
+    ReactiveFormsModule, //diretivas de formulário reativo do angular
+    RouterLink
   ],
   templateUrl: './consulta-produtos.component.html',
   styleUrl: './consulta-produtos.component.css'
@@ -32,7 +35,7 @@ mensagem: string = '';
 
   //metodo para enviar o formulario
   onSubmit(){
-    this.http.get('http://localhost:8080/api/produtos/consultar/' + this.form.value.nome)
+    this.http.get(`${endpoints.consultar_produtos}/${this.form.value.nome}`  )
     .subscribe({
       next: (data) =>{
         this.produtos = data as any[];
@@ -41,5 +44,20 @@ mensagem: string = '';
       }
     })
   }
+
+  //metodo para quando o usuario clicar no botao exclusão
+  onDelete(id: string){
+
+    if(confirm('Deseja realmente excluir o produto selecionado?')){
+      this.http.delete(`${endpoints.excluir_produto}/${id}`) // chamada do endpoint de exclusão
+      .subscribe({ // aguardando a resposta
+        next: (data:any) => { // recebendo a resposta 
+          this.mensagem = data.message; //exibindo a mensagem obtida da API
+          this.produtos = this.produtos.filter(produto => produto.id !== id);
+        }
+      })
+    }
+}
+
 
 }
